@@ -243,7 +243,7 @@ int bl602_configgpio(gpio_pinset_t cfgset);
  *
  ****************************************************************************/
 
-int bl602_gpio_deinit(uint8_t pin);
+int bl602_gpio_deinit(gpio_pinset_t pin);
 
 /****************************************************************************
  * Name: bl602_config_uart_sel

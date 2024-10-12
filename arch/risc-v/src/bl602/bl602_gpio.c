@@ -72,7 +72,7 @@ int bl602_configgpio(gpio_pinset_t cfgset)
   uint32_t mask;
   uintptr_t regaddr;
   uint32_t cfg = 0;
-  uint8_t pin = (cfgset & GPIO_PIN_MASK) >> GPIO_PIN_SHIFT;
+  gpio_pinset_t pin = (cfgset & GPIO_PIN_MASK) >> GPIO_PIN_SHIFT;
 
   if (pin > 27)
     {
@@ -151,7 +151,7 @@ int bl602_configgpio(gpio_pinset_t cfgset)
  *
  ****************************************************************************/
 
-int bl602_gpio_deinit(uint8_t pin)
+int bl602_gpio_deinit(gpio_pinset_t pin)
 {
   bl602_configgpio(GPIO_INPUT | GPIO_FLOAT | pin);
   return OK;
@@ -173,7 +173,7 @@ int bl602_gpio_deinit(uint8_t pin)
 int bl602_config_uart_sel(gpio_pinset_t pinset, uint8_t sig_sel)
 {
   irqstate_t flags;
-  uint8_t pin = (pinset & GPIO_PIN_MASK) >> GPIO_PIN_SHIFT;
+  gpio_pinset_t pin = (pinset & GPIO_PIN_MASK) >> GPIO_PIN_SHIFT;
   uint8_t sel_idx;
   uint32_t reg;
 
@@ -204,7 +204,7 @@ int bl602_config_uart_sel(gpio_pinset_t pinset, uint8_t sig_sel)
 
 void bl602_gpiowrite(gpio_pinset_t pinset, bool value)
 {
-  uint8_t pin = (pinset & GPIO_PIN_MASK) >> GPIO_PIN_SHIFT;
+  gpio_pinset_t pin = (pinset & GPIO_PIN_MASK) >> GPIO_PIN_SHIFT;
   if (value)
     {
       modifyreg32(BL602_GPIO_CFGCTL32, 0, (1 << pin));
@@ -225,6 +225,6 @@ void bl602_gpiowrite(gpio_pinset_t pinset, bool value)
 
 bool bl602_gpioread(gpio_pinset_t pinset)
 {
-  uint8_t pin = (pinset & GPIO_PIN_MASK) >> GPIO_PIN_SHIFT;
+  gpio_pinset_t pin = (pinset & GPIO_PIN_MASK) >> GPIO_PIN_SHIFT;
   return ((getreg32(BL602_GPIO_CFGCTL30) & (1 << pin)) ? 1 : 0);
 }
