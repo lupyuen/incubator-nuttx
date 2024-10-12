@@ -548,10 +548,12 @@ int bl602_gpio_initialize(void)
   int pincount = 0;
 
 #if BOARD_NGPIOIN > 0
+  DEBUGASSERT(sizeof(g_gpioinputs)/sizeof(g_gpioinputs[0]) == BOARD_NGPIOIN);
   for (i = 0; i < BOARD_NGPIOIN; i++)
     {
       /* Setup and register the GPIO pin */
 
+      DEBUGASSERT(g_gpioinputs[i] != 0);
       g_gpin[i].gpio.gp_pintype = GPIO_INPUT_PIN;
       g_gpin[i].gpio.gp_ops     = &gpin_ops;
       g_gpin[i].id              = i;
@@ -566,10 +568,12 @@ int bl602_gpio_initialize(void)
 #endif
 
 #if BOARD_NGPIOOUT > 0
+  DEBUGASSERT(sizeof(g_gpiooutputs)/sizeof(g_gpiooutputs[0]) == BOARD_NGPIOOUT);
   for (i = 0; i < BOARD_NGPIOOUT; i++)
     {
       /* Setup and register the GPIO pin */
 
+      DEBUGASSERT(g_gpiooutputs[i] != 0);
       g_gpout[i].gpio.gp_pintype = GPIO_OUTPUT_PIN;
       g_gpout[i].gpio.gp_ops     = &gpout_ops;
       g_gpout[i].id              = i;
@@ -584,10 +588,12 @@ int bl602_gpio_initialize(void)
 #endif
 
 #if BOARD_NGPIOINT > 0
+  DEBUGASSERT(sizeof(g_gpiointinputs)/sizeof(g_gpiointinputs[0]) == BOARD_NGPIOINT);
   for (i = 0; i < BOARD_NGPIOINT; i++)
     {
       /* Setup and register the GPIO pin */
 
+      DEBUGASSERT(g_gpiointinputs[i] != 0);
       g_gpint[i].bl602gpio.gpio.gp_pintype = GPIO_INTERRUPT_PIN;
       g_gpint[i].bl602gpio.gpio.gp_ops     = &gpint_ops;
       g_gpint[i].bl602gpio.id              = i;
